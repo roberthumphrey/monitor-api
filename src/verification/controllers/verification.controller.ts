@@ -8,8 +8,12 @@ export class VerificationController {
      constructor(@Inject(SERVICES.VERIFICATION_SERVICE) private readonly verifyService: IVerificationService) {}
 
      @Get(':id')
-     getVerificationRecord(@Param('id') id: number) {
-          return this.verifyService.getVerificationRecord(id);
+     async getVerificationRecord(@Param('id') id: number) {
+          const user = await this.verifyService.getVerificationRecord(id);
+
+          if (!user) return { success: false, message: 'No User Found' };
+
+          return user;
      }
 
      @Post('complete')
