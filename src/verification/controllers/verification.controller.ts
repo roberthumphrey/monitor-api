@@ -13,7 +13,7 @@ export class VerificationController {
 
           if (!user) return { success: false, message: 'No User Found' };
 
-          return user;
+          return { success: true, user };
      }
 
      @Post('complete')
