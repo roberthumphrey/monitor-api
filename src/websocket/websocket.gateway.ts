@@ -1,6 +1,7 @@
 import { MessageBody, SubscribeMessage, WebSocketGateway, WebSocketServer } from "@nestjs/websockets";
 import { Server } from "socket.io";
 import { User } from "src/utils/database/user.schema";
+import { Data } from "src/utils/types";
 
 @WebSocketGateway()
 export class WebSocketHandler {
@@ -11,7 +12,7 @@ export class WebSocketHandler {
           console.log(data);
      }
 
-     verificationComplete(user: User) {
-          this.ws.emit('VERIFICATION_COMPLETE', user);
+     verificationComplete(data: Data) {
+          this.ws.emit('VERIFICATION_COMPLETE', data);
      }
 }

@@ -3,7 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { User, UserDocument } from 'src/utils/database/user.schema';
 import { Verify, VerifyDocument } from 'src/utils/database/verify.schema';
-import { VerificationStatus } from 'src/utils/types';
+import { Data, VerificationStatus } from 'src/utils/types';
 import { IVerificationService } from '../interfaces/verification.interface';
 
 @Injectable()
@@ -29,8 +29,14 @@ export class VerificationService implements IVerificationService {
 
           if (!user) return { success: false, message: 'An unknown error occurred in the verification proccess' };
 
+          let data: Data = {
+               channelId: verificationRecord.get('channelId'),
+               server: '962332707340312596',
+               user
+          }
+
           await this.verifyModel.deleteOne({ discordId });
 
-          return { success: true, message: `User ${username} (${id}) has been verified successfully.`, user };
+          return { success: true, message: `User ${username} (${id}) has been verified successfully.`, data };
      }
 }

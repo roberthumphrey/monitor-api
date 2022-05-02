@@ -21,7 +21,7 @@ export class VerificationController {
      async verifyUser(@Body() { id, username, code }: CompleteVerificationDto) {
           const status = await this.verifyService.verifyUser(id, code, username);
 
-          this.ws.verificationComplete(status.user);
+          this.ws.verificationComplete(status.data);
 
           return status;
      }
