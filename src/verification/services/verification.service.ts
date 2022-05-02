@@ -31,6 +31,6 @@ export class VerificationService implements IVerificationService {
 
           await this.verifyModel.deleteOne({ discordId });
 
-          return { success: true, message: `User ${username} (${id}) has been verified successfully.` };
+          return { success: true, message: `User ${username} (${id}) has been verified successfully.`, user };
      }
 }
