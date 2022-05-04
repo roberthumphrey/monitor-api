@@ -1,15 +1,16 @@
 import { MessageBody, SubscribeMessage, WebSocketGateway, WebSocketServer } from "@nestjs/websockets";
 import { Server } from "socket.io";
-import { User } from "src/utils/database/user.schema";
 import { Data } from "src/utils/types";
 
 @WebSocketGateway()
 export class WebSocketHandler {
      @WebSocketServer() ws: Server;
 
-     @SubscribeMessage('heartbeat')
+     @SubscribeMessage('ping')
      handlePing() {
-          this.ws.emit('heartbeatPong');
+          let time = new Date().getTime();
+
+          this.ws.emit('pong', { time });
      }
 
      @SubscribeMessage('verification')
