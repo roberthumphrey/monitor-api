@@ -7,6 +7,11 @@ import { Data } from "src/utils/types";
 export class WebSocketHandler {
      @WebSocketServer() ws: Server;
 
+     @SubscribeMessage('heartbeat')
+     handlePing() {
+          this.ws.emit('heartbeatPong');
+     }
+
      @SubscribeMessage('verification')
      verificationHandler(@MessageBody() data: any) {
           console.log(data);
