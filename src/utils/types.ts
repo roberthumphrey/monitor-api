@@ -11,3 +11,7 @@ export type VerificationStatus = {
      message: string;
      data?: Data
 }
+
+export type Ping = {
+     time: Date;
+}

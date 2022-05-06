@@ -1,14 +1,21 @@
 import { MessageBody, SubscribeMessage, WebSocketGateway, WebSocketServer } from "@nestjs/websockets";
 import { Server } from "socket.io";
-import { Data } from "src/utils/types";
+import { Data, Ping } from "src/utils/types";
 
 @WebSocketGateway()
 export class WebSocketHandler {
      @WebSocketServer() ws: Server;
 
      @SubscribeMessage('ping')
-     handlePing() {
-          let time = new Date().getTime();
+     handlePing(data: Ping) {
+          let serverTime = new Date();
+          let clientTime = data.time;
+
+          console.log(serverTime, clientTime);
+
+          let time = serverTime.getTime() - clientTime.getTime();
+
+          console.log(time);
 
           this.ws.emit('pong', { time });
      }
