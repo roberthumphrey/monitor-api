@@ -7,15 +7,10 @@ export class WebSocketHandler {
      @WebSocketServer() ws: Server;
 
      @SubscribeMessage('ping')
-     handlePing(data: Ping) {
-          let serverTime = new Date();
+     handlePing(@MessageBody() data: Ping) {
+          let serverTime = new Date().getTime();
           let clientTime = data.time;
-
-          console.log(serverTime, clientTime);
-
-          let time = serverTime.getTime() - clientTime.getTime();
-
-          console.log(time);
+          let time = serverTime - clientTime;
 
           this.ws.emit('pong', { time });
      }

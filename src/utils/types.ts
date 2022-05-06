@@ -13,5 +13,5 @@ export type VerificationStatus = {
 }
 
 export type Ping = {
-     time: Date;
+     time: number;
 }
